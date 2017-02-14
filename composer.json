@@ -11,7 +11,13 @@
     ],
     "require": {
         "php": ">=5.4",
+        "illuminate/support": "5.1.*|5.2.*|5.3.*",
         "swiftmailer/swiftmailer": "~5.1",
         "appmail/appmail": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Willemo\\LaravelAppMail\\": "src/"
+        }
     }
 }
