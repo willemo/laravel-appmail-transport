@@ -1,0 +1,17 @@
+{
+    "name": "willemo/laravel-appmail",
+    "description": "AppMail.io service provider for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Willem Oostendorp",
+            "email": "willem@wioo.nl"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "swiftmailer/swiftmailer": "~5.1",
+        "appmail/appmail": "^1.0"
+    }
+}
