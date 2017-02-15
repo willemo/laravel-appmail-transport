@@ -42,7 +42,9 @@ class AppMailServiceProvider extends ServiceProvider
 
         $configPath = __DIR__ . '/../config/laravel-appmail.php';
 
-        $this->publishes([$configPath => config_path('laravel-appmail.php')]);
+        $this->publishes([
+            $configPath => config_path('laravel-appmail.php')
+        ], 'config');
 
         $this->mergeConfigFrom($configPath, 'laravel-appmail');
     }
