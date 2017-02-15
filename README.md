@@ -10,7 +10,7 @@ composer require willemo/laravel-appmail-transport
 
 After this you'll have to **replace** the default MailServiceProvider from Laravel in `config/app.php`:
 
-```
+```php
 Illuminate\Mail\MailServiceProvider::class, // remove this one
 Willemo\LaravelAppMailTransport\ExtendedMailServiceProvider::class, // add this one
 ```
@@ -19,7 +19,7 @@ Now the only things you'll have to do is add your AppMail.io server key to the `
 
 ### config/services.php:
 
-```
+```php
 'appmail' => [
     'key' => env('APPMAIL_KEY'),
 ],
