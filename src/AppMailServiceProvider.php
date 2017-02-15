@@ -25,12 +25,12 @@ class AppMailServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/laravel-appmail.php',
-            'laravel-appmail'
+            __DIR__ . '/../config/config.php',
+            'appmail'
         );
 
         app('swift.transport')->extend('appmail', function () {
-            $config = $this->app['config']->get('laravel-appmail', []);
+            $config = $this->app['config']->get('appmail', []);
 
             $guzzleConfig = Arr::get($config, 'guzzle', []);
 
@@ -44,19 +44,14 @@ class AppMailServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register any other events for your application.
+     * Boot the service provider.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $events
      * @return void
      */
-    public function boot(DispatcherContract $events)
+    public function boot()
     {
-        parent::boot($events);
-
-        $configPath = __DIR__ . '/../config/laravel-appmail.php';
-
         $this->publishes([
-            $configPath => config_path('laravel-appmail.php'),
+            __DIR__ . '/../config/config.php' => config_path('appmail.php'),
         ], 'config');
     }
 }
