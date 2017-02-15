@@ -23,6 +23,11 @@ class AppMailServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/laravel-appmail.php',
+            'laravel-appmail'
+        );
+
         app('swift.transport')->extend('appmail', function ($app) {
             $apiKey = $app['config']->get('laravel-appmail.api_key');
 
@@ -43,9 +48,7 @@ class AppMailServiceProvider extends ServiceProvider
         $configPath = __DIR__ . '/../config/laravel-appmail.php';
 
         $this->publishes([
-            $configPath => config_path('laravel-appmail.php')
+            $configPath => config_path('laravel-appmail.php'),
         ], 'config');
-
-        $this->mergeConfigFrom($configPath, 'laravel-appmail');
     }
 }
