@@ -38,4 +38,5 @@ Now all your emails will be sent through the AppMail.io API.
 What's still on the todo list for this package is the following:
 
 - Process exceptions from the API;
-- Create some way to get the message ID and tokens from the response from the API (possibly through events).
+- Create some way to get the message ID and tokens from the response from the API (possibly through events);
+- Add tests.
