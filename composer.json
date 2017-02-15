@@ -1,6 +1,7 @@
 {
     "name": "willemo/laravel-appmail",
-    "description": "AppMail.io service provider for Laravel",
+    "description": "AppMail.io service provider for Laravel 5",
+    "keywords": ["appmail", "mail", "laravel"],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -19,5 +20,7 @@
         "psr-4": {
             "Willemo\\LaravelAppMail\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : true
 }
