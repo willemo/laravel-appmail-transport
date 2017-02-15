@@ -5,7 +5,7 @@
 To install this package you'll have to require it in composer:
 
 ```
-composer require willemo/laravel-appmail-transport
+composer require willemo/laravel-appmail-transport:1.*
 ```
 
 After this you'll have to **replace** the default MailServiceProvider from Laravel in `config/app.php`:
