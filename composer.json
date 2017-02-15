@@ -1,6 +1,6 @@
 {
-    "name": "willemo/laravel-appmail",
-    "description": "AppMail.io service provider for Laravel 5",
+    "name": "willemo/laravel-appmail-transport",
+    "description": "AppMail.io mail transport for Laravel 5",
     "keywords": ["appmail", "mail", "laravel"],
     "type": "library",
     "license": "MIT",
@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Willemo\\LaravelAppMail\\": "src/"
+            "Willemo\\LaravelAppMailTransport\\": "src/"
         }
     },
     "minimum-stability": "dev",

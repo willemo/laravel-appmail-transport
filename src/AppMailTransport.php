@@ -1,6 +1,6 @@
 <?php
 
-namespace Willemo\LaravelAppMail;
+namespace Willemo\LaravelAppMailTransport;
 
 use Illuminate\Mail\Transport\Transport;
 use GuzzleHttp\ClientInterface;
@@ -20,37 +20,19 @@ class AppMailTransport extends Transport
      *
      * @var string
      */
-    protected $apiKey;
-
-    /**
-     * AppMail API host
-     *
-     * @var string
-     */
-    protected $host;
-
-    /**
-     * AppMail API version
-     *
-     * @var string
-     */
-    protected $version;
+    protected $key;
 
     /**
      * Create a new AppMail transport instance
      *
      * @param \GuzzleHttp\ClientInterface  $client
-     * @param string  $apiKey
-     * @param string  $host
-     * @param string  $version
+     * @param string  $key
      * @return void
      */
-    public function __construct(ClientInterface $client, $apiKey, $host, $version)
+    public function __construct(ClientInterface $client, $key)
     {
         $this->client = $client;
-        $this->apiKey = $apiKey;
-        $this->host = $host;
-        $this->version = $version;
+        $this->key = $key;
     }
 
     /**
@@ -62,16 +44,16 @@ class AppMailTransport extends Transport
 
         $options = [
             'headers' => [
-                'x-server-api-key' => $this->apiKey,
+                'x-server-api-key' => $this->key,
             ],
             'json' => [
-                'mail_from' => $this->formatAddresses($message->getFrom()),
+                'mail_from' => $this->formatAddress($message->getFrom()),
                 'rcpt_to' => $this->getRcptToAddresses($message),
                 'data' => base64_encode($message->toString()),
             ],
         ];
 
-        return $this->client->post($this->getUrl(), $options);
+        return $this->client->post('https://api.appmail.io/api/v1/send/raw', $options);
     }
 
     /**
@@ -80,10 +62,8 @@ class AppMailTransport extends Transport
      * @param  string|array $address
      * @return string
      */
-    protected function formatAddresses($address)
+    protected function formatAddress($address, $name = null)
     {
-        $name = null;
-
         if (is_array($address)) {
             $name = current($address);
             $address = key($address);
@@ -106,17 +86,13 @@ class AppMailTransport extends Transport
             (array) $message->getBcc()
         );
 
-        return array_map([$this, 'formatAddresses'], $rcptTo);
-    }
+        $formatted = [];
 
-    /**
-     * Get the URL to post the API request to
-     *
-     * @return string
-     */
-    protected function getUrl()
-    {
-        return sprintf('https://%s/api/%s/send/raw', $this->host, $this->version);
+        foreach ($rcptTo as $address => $name) {
+            $formatted[] = $this->formatAddress($address, $name);
+        }
+
+        return $formatted;
     }
 
     /**
@@ -124,9 +100,9 @@ class AppMailTransport extends Transport
      *
      * @return string
      */
-    public function getApiKey()
+    public function getKey()
     {
-        return $this->apiKey;
+        return $this->key;
     }
 
     /**
@@ -134,48 +110,8 @@ class AppMailTransport extends Transport
      *
      * @param string $apiKey
      */
-    public function setApiKey($apiKey)
+    public function setKey($key)
     {
-        return $this->apiKey = $apiKey;
-    }
-
-    /**
-     * Get the host being used by the transport
-     *
-     * @return string
-     */
-    public function getHost()
-    {
-        return $this->host;
-    }
-
-    /**
-     * Set the host being used by the transport
-     *
-     * @param string $host
-     */
-    public function setHost($host)
-    {
-        return $this->host = $host;
-    }
-
-    /**
-     * Get the version being used by the transport
-     *
-     * @return string
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * Set the version being used by the transport
-     *
-     * @param string $version
-     */
-    public function setVersion($version)
-    {
-        return $this->version = $version;
+        return $this->key = $key;
     }
 }
