@@ -2,10 +2,11 @@
 
 namespace Willemo\LaravelAppMail;
 
-use Willemo\LaravelAppMail\AppMailTransport;
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
-use AppMail\Client;
+use Willemo\LaravelAppMail\AppMailTransport;
+use GuzzleHttp\Client as HttpClient;
 
 class AppMailServiceProvider extends ServiceProvider
 {
@@ -28,10 +29,17 @@ class AppMailServiceProvider extends ServiceProvider
             'laravel-appmail'
         );
 
-        app('swift.transport')->extend('appmail', function ($app) {
-            $apiKey = $app['config']->get('laravel-appmail.api_key');
+        app('swift.transport')->extend('appmail', function () {
+            $config = $this->app['config']->get('laravel-appmail', []);
 
-            return new AppMailTransport(new Client($apiKey));
+            $guzzleConfig = Arr::get($config, 'guzzle', []);
+
+            return new AppMailTransport(
+                new HttpClient(Arr::add($guzzleConfig, 'connect_timeout', 60)),
+                $config['api_key'],
+                $config['api_host'],
+                $config['api_version']
+            );
         });
     }
 
