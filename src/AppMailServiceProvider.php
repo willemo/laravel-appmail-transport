@@ -5,7 +5,6 @@ namespace Willemo\LaravelAppMail;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
-use Willemo\LaravelAppMail\AppMailTransport;
 use GuzzleHttp\Client as HttpClient;
 
 class AppMailServiceProvider extends ServiceProvider

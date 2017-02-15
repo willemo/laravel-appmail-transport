@@ -85,8 +85,8 @@ class AppMailTransport extends Transport
         $name = null;
 
         if (is_array($address)) {
-            $address = key($address);
             $name = current($address);
+            $address = key($address);
         }
 
         return !empty($name) ? $name . " <$address>" : $address;
