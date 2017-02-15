@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Willemo\\LaravelAppMail\\": "src/"
+            "Willemo\\LaravelAppMail\\": "src"
         }
     },
     "minimum-stability": "dev",
