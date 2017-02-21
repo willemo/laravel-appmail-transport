@@ -6,8 +6,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Mail\MailServiceProvider;
 use GuzzleHttp\Client as HttpClient;
 
-use App\Providers\MailTransport\AppMailTransport;
-
 class ExtendedMailServiceProvider extends MailServiceProvider
 {
     /**
