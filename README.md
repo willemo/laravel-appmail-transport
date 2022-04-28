@@ -1,6 +1,10 @@
 # laravel-appmail-transport
 [AppMail.io](appmail.io) mail transport for Laravel 5.x. This package adds a mail driver that supports the AppMail.io API v1.
 
+## This project is abandoned
+
+This project is no longer supported.
+
 ## Installation
 To install this package you'll have to require it in composer:
 
